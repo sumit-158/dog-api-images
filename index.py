@@ -3,6 +3,7 @@ from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.applications.resnet50 import ResNet50
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
+import os
 
 # Set up data generators
 train_datagen = ImageDataGenerator(
@@ -19,16 +20,18 @@ train_datagen = ImageDataGenerator(
 val_datagen = ImageDataGenerator(
     rescale=1./255
 )
+images = os.path.join("images")
+os.listdir(images)
 
 train_generator = train_datagen.flow_from_directory(
-    'images',
+    images,
     target_size=(224, 224),
     batch_size=32,
     class_mode='categorical'
 )
 
 val_generator = val_datagen.flow_from_directory(
-    'images',
+    images,
     target_size=(224, 224),
     batch_size=32,
     class_mode='categorical'
